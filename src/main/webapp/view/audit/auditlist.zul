@@ -1,0 +1,115 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 8 - 6 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native">
+	<window id="winAudit" width="80%" validationMessages="@id('vmsgs')"
+		border="normal" closable="true" action="hide: slideUp"
+		position="center,center"
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.AuditListVM')">
+		<caption />
+		<div class="add_project.zul card ">
+			<div class="card-body">
+				<n:h5>
+					<n:i class="fas fa-users"></n:i>
+					<label id="labelJudul"></label>
+				</n:h5>
+			</div>
+			<div class="card-body">
+				<div class="card-body">
+
+					<div class="row">
+
+					</div>
+					<separator />
+
+					<grid id="grid2" emptyMessage="Data Empty"
+						pagingPosition="top" visible="false" span="true" sizedByContent="true">
+						<columns>
+							<column width="50px" label="No"
+								align="center" />
+							<column label="Fee Rate" align="left" />
+							<column label="Updated By" align="center" />
+							<column label="Changes Notes" align="center" />
+							<column label="Date" align="center" />
+						</columns>
+					</grid>
+
+					<grid id="gridTiering" emptyMessage="Data Empty"
+						pagingPosition="top" visible="false" span="true" sizedByContent="true">
+						<columns>
+							<column width="50px" label="No"
+								align="center" />
+							<column label="Bottom Tier" align="left" />
+							<column label="Top Tier" align="center" />
+							<column label="Fee" align="center" />
+							<column label="Tier No" align="center" />
+							<column label="Updated By" align="center" />
+							<column label="Changes Notes" align="center" />
+							<column label="Date" align="center" />
+						</columns>
+					</grid>
+
+					<grid id="gridOther" emptyMessage="Data Empty"
+						pagingPosition="top" visible="false" span="true" sizedByContent="true">
+						<columns>
+							<column width="50px" label="No"
+								align="center" />
+							<column label="Text" align="left" />
+							<column label="Updated By" align="center" />
+							<column label="Changes Notes" align="center" />
+							<column label="Date" align="center" />
+						</columns>
+					</grid>
+					
+					<grid id="gridFitur" emptyMessage="Data Empty"
+						pagingPosition="top" visible="false" span="true" sizedByContent="true">
+						<columns>
+							<column width="50px" label="No"
+								align="center" />
+							<column label="Fiture Name" align="left" />
+							<column label="Fee" align="left" />
+							<column label="Updated By" align="center" />
+							<column label="Changes Notes" align="center" />
+							<column label="Date" align="center" />
+						</columns>
+					</grid>
+					
+					<grid id="gridPaket" emptyMessage="Data Empty"
+						pagingPosition="top" visible="false" span="true" sizedByContent="true">
+						<columns>
+							<column width="50px" label="No"
+								align="center" />
+							<column label="Product Price" align="left" />
+							<column label="Product Quota" align="left" />
+							<column label="Product Fee/Trx" align="left" />
+							<column label="Updated By" align="center" />
+							<column label="Changes Notes" align="center" />
+							<column label="Date" align="center" />
+						</columns>
+					</grid>
+
+					<grid id="gridFreqTransaction" emptyMessage="Data Empty"
+						  pagingPosition="top" visible="false" span="true" sizedByContent="true">
+						<columns>
+							<column width="50px" label="No"
+									align="center" />
+							<column label="Product Fee Rate Trx" align="left" />
+							<column label="Product Freq Fee Rate" align="left" />
+							<column label="Updated By" align="center" />
+							<column label="Changes Notes" align="center" />
+							<column label="Date" align="center" />
+						</columns>
+					</grid>
+					
+
+				</div>
+			</div>
+		</div>
+	</window>
+</zk>

@@ -1,0 +1,35 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 28 - 11 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:h="http://www.w3.org/1999/xhtml">
+    <window id="request_approval_preview"
+            viewModel="@id('vm') @init('com.vym.tugas.viewmodel.RequestApprovalPreviewVm')"
+            border="normal" closable="true" action="hide: slideUp"
+            validationMessages="@id('vmsgs')" position="center,top"
+            width="65%"
+            style="margin: 10px; align:center">
+
+        <caption></caption>
+
+        <div class="card border border-dark">
+            <div class="card-header" id="divRoot">
+                <h:h5>
+                    <h:i class="fa-solid fa-code-pull-request"></h:i>
+                    <label value="Preview Previous Data"
+                           style="font-size:16px" />
+                </h:h5>
+            </div>
+        </div>
+
+        <div class="container">
+                <h:div id="masterHtml">
+                </h:div>
+        </div>
+    </window>
+</zk>

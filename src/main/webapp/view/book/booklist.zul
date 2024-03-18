@@ -1,0 +1,105 @@
+<!--
+  ~ Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ 27 - 3 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native">
+	<div
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.BookListVm')"
+		validationMessages="@id('vmsgs')">
+				<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fas fa-solid fa-file-invoice"></n:i>
+					<label value="DGO File" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+		<div class="card">
+	<!-- 		<div class="card-header">
+				<n:h5>
+					<n:i class="fas fa-solid fa-file-invoice"></n:i>
+					DGO File
+				</n:h5>
+
+			</div> -->
+			<div class="card-body">
+				<groupbox mold="3d">
+					<caption label="${labels.common.searching}"
+						iconSclass="z-icon-search" />
+					<grid>
+						<columns>
+							<column width="130px" />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Year" />
+								<intbox value="@bind(vm.year)"
+									cols="20" />
+							</row>
+							<row>
+								<label value="Month" />
+								<combobox id="cbMonth" cols="20"
+									selectedItem="@bind(vm.month)" />
+							</row>
+						</rows>
+						<foot>
+							<footer />
+							<footer>
+								<div class="row">
+									<div class="col-md-6">
+										<n:div role="group">
+											<button
+												class="btn btn-info btn-sm"
+												label="${labels.common.search}"
+												onClick="@command('doSearch')" />
+											<button
+												class="btn btn-info btn-sm"
+												label="${labels.common.reset}"
+												onClick="@command('doReset')" />
+										</n:div>
+									</div>
+								</div>
+							</footer>
+						</foot>
+					</grid>
+				</groupbox>
+				<separator />
+				<div class="row">
+					<div class="col-md-10" />
+					<div class="col-md-2" align="right">
+						<label value="Total Record :"
+							style="font-weight: bold" />
+						<label value="@load(vm.pageTotalSize)"
+							style="font-weight: bold" />
+					</div>
+				</div>
+				<grid id="grid"
+					emptyMessage="${labels.common.emptymsg}">
+					<columns>
+						<column label="${labels.common.no}"
+							align="right" width="40px" />
+						<column label="Book ID" align="center"
+							width="20%" />
+						<column label="Book Time" align="center"
+							width="15%" />
+						<column label="Total Data" align="right"
+							width="15%" />
+						<column label="Total Amount" align="right"
+							width="20%" />
+						<column label="Status" align="center"
+							width="20%" />
+						<column label="Action" align="center"
+							width="20%" />
+					</columns>
+				</grid>
+				<separator />
+			</div>
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:x="xhtml">
+	<window
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.ReportFeeCollVm')"
+		width="95%">
+		<div class="card mt-4">
+			<x:h5 class="card-header">
+			<n:i class="fas fa-solid fa-comments-dollar"></n:i>
+				Report Fee Collection
+				<div align="right">
+					<hlayout>
+						<intbox value="@bind(vm.year)" cols="10" />
+						<button class="btn btn-info"
+							onClick="@command('doRefresh')" label="${labels.common.search}" />
+					</hlayout>
+				</div>
+			</x:h5>
+			<div class="card-body">
+				<grid id="grid" />
+			</div>
+		</div>
+	</window>
+</zk>

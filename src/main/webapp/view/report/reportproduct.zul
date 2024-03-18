@@ -1,0 +1,147 @@
+<!--
+	~ Irsal Hakim Alamsyah
+	~ @irsalha
+	~ 27 - 3 - 2023
+-->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:x="xhtml">
+	<div
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.ReportProductVm')">
+		<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fas fa-solid fa-comments-dollar"></n:i>
+					<label value="Report Of Product's Fee" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<!-- 			<n:h5>
+					<n:i class="fas fa-solid fa-comments-dollar"></n:i>
+					Report Of Product's Fee
+					</n:h5> -->
+
+			</div>
+
+
+			<groupbox mold="3d">
+				<caption label="Filter" />
+				<grid>
+					<columns>
+						<column width="150px" />
+						<column />
+					</columns>
+					<rows>
+						<row>
+							<label value="Period" />
+							<hbox>
+								<intbox placeholder="Year" maxlength="4"
+									cols="2" value="@bind(vm.year)" style="text-align: right" />
+								<combobox id="cbMonth1"
+									selectedIndex="@bind(vm.month1)" cols="6" readonly="true" />
+								<label value="To" />
+								<combobox id="cbMonth2"
+									selectedIndex="@bind(vm.month2)" cols="6" readonly="true" />
+							</hbox>
+						</row>
+						<row>
+							<label value="Product" />
+							<combobox id="cbProduct"
+								placeholder="-ALL PRODUCT-" cols="34"
+								model="@load(vm.productModel)"
+								selectedItem="@bind(vm.mproduct)">
+								<template name="model" var="mproduct">
+									<comboitem
+										label="@load(mproduct.productname)" />
+								</template>
+							</combobox>
+						</row>
+					</rows>
+					<foot>
+						<footer />
+						<footer>
+							<div class="row">
+								<div class="col">
+									<button
+										sclass="btn btn-primary btn-sm" autodisable="self"
+										label="Search" onClick="@command('doSearch')" />
+									<button
+										sclass="btn btn-success btn-sm" autodisable="self"
+										label="Reset" onClick="@command('doReset')" />
+								</div>
+								<div class="col" align="right">
+									<button id="btExport"
+										class="btn btn-success btn-sm" autodisable="self"
+										onClick="@command('doExport')" label="Export" />
+								</div>
+							</div>
+						</footer>
+					</foot>
+				</grid>
+			</groupbox>
+			<n:hr />
+			<div align="center">
+				<label value="@load(vm.title)" style="font-size: 22px" />
+			</div>
+			<div class="card-body">
+				<grid id="grid" mold="paging" pagingPosition="both"
+					pageSize="20" emptyMessage="No items match your search">
+					<columns>
+						<column width="5%" label="No" align="right" />
+						<column width="20%" label="Product"
+							align="left" />
+						<column width="20%" label="Total Item Trx"
+							align="right" />
+						<column width="20%" label="Total Amount Trx"
+							align="right" />
+						<column width="20%" label="Total Fee"
+							align="right" />
+						<column width="20%" label="Paid" align="right" />
+						<column width="20%" label="Unpaid"
+							align="right" />
+						<column width="10%" label="Action"
+							align="center" />
+					</columns>
+					<foot>
+						<footer span="2" align="center">
+							<label value="TOTAL"
+								style="font-weight: bold" />
+						</footer>
+						<footer align="right">
+							<label
+								value="@load(vm.totaltrx) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer align="right">
+							<label
+								value="@load(vm.totalamount) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer align="right">
+							<label
+								value="@load(vm.totalfee) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer align="right">
+							<label
+								value="@load(vm.totalpaid) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer align="right">
+							<label
+								value="@load(vm.totalunpaid) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer />
+					</foot>
+				</grid>
+			</div>
+		</div>
+
+	</div>
+</zk>

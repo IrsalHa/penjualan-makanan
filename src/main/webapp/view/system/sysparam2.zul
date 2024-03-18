@@ -1,0 +1,47 @@
+<?page title="${desktop.webApp.appName}"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/assets/css/custom.css" ?>
+
+<?link rel="stylesheet" type="text/css"	href="/assets/css/avio-style.css" ?>
+
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 12 - 6 - 2023
+  -->
+
+<zk xmlns:n="native">
+	<div class="/view/system/sysparam.zul card"
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.MsysparamVm')"
+		validationMessages="@id('vmsgs')">
+		<div class="card-header">
+			<n:h6>
+				<n:i class="fas fa-lg fa-cogs"></n:i>
+				System Parameter
+			</n:h6>
+		</div>
+		<div class="card-body">
+
+			<grid id="grid" style="border-radius:8px" sizedByContent="true" span="true">
+				<columns>
+					<column label="${labels.sysparam.paramname}"
+						style="background-color:#0193F9; border:0px; border-bottom:1px solid #fff; color:white; font-weight:bold; font-size:14px" />
+					<column label="${labels.sysparam.paramdesc}" align=""
+						style="background-color:#0193F9; border:0px; border-bottom:1px solid #fff; color:white; font-weight:bold; font-size:14px" />
+					<column label="${labels.sysparam.paramvalue}"
+						style="background-color:#0193F9; border:0px; border-bottom:1px solid #fff; color:white; font-weight:bold; font-size:14px"
+						align="center" />
+				</columns>
+				<rows />
+			</grid>
+			<separator />
+			<separator />
+			<div align="right">
+				<button sclass="btn btn-primary"
+					label="${labels.common.save}" onClick="@command('doSave')"
+					width="100%" />
+			</div>
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,115 @@
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 15 - 6 - 2023
+  -->
+
+<zk xmlns:n="native">
+	<div
+		viewModel="@id('vm')@init('com.vym.tugas.viewmodel.MusergroupListVm')">
+
+		<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fa-solid fa-user-group"></n:i>
+					<label value="User Group" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-body">
+			<groupbox mold="3d">
+				<caption label="${labels.common.searching}"
+					 iconSclass="z-icon-search" />
+				<grid>
+					<columns>
+						<column width="170px" />
+						<column />
+					</columns>
+					<rows>
+						<row>
+							<label value="${labels.usergroup.usergroupcode}" />
+							<textbox value="@bind(vm.usergroupcode)"
+								cols="25" maxlength="20" />
+						</row>
+						<row>
+							<label value="${labels.usergroup.usergroupname}" />
+							<textbox value="@bind(vm.usergroupname)"
+								cols="25" maxlength="40" />
+						</row>
+					</rows>
+					<foot>
+						<footer />
+						<footer>
+							<div class="row">
+								<div class="col-md-2">
+									<n:div role="group">
+										<button autodisable="self"
+											label="${labels.common.search}" 
+											class="btn btn-info btn-sm"
+											onClick="@command('doSearch')">
+										</button>
+										<button autodisable="self"
+											label="${labels.common.reset}"
+											class="btn btn-info btn-sm"
+											onClick="@command('doReset')">
+										</button>
+									</n:div>
+								</div>
+							</div>
+						</footer>
+					</foot>
+				</grid>
+			</groupbox>
+			<separator />
+			<separator />
+			<div class="row">
+				<div class="col-md-12" align="right">
+					<button autodisable="self" label="${labels.common.addnew}"
+						sclass="btn btn-primary btn-sm" iconSclass="z-icon-plus"
+						onClick="@command('doAddnew')">
+					</button>
+
+				</div>
+			</div>
+			<separator />
+			<separator />
+			<div class="row">
+				<div class="col-md">
+					<paging id="paging" autohide="true"
+						style="margin-bottom:-20px" />
+				</div>
+				<div class="col-md-2" align="right">
+					<label value="Total Data :"
+						style="font-weight: bold" />
+					<label value="@load(vm.pageTotalSize)"
+						style="font-weight: bold" />
+				</div>
+			</div>
+			<div>
+				<grid id="grid" mold="paging" pageSize="20" pagingPosition="top"
+					emptyMessage="${labels.common.emptymsg}">
+					<columns>
+						<column label="No" width="40px"
+							align="right" />
+						<column
+							label="${labels.usergroup.usergroupcode}"
+							sort="auto(usergroupcode)" />
+						<column
+							label="${labels.usergroup.usergroupname}"
+							sort="auto(usergroupname)" />
+						<column
+							label="${labels.usergroup.usergroupdesc}"
+							sort="auto(usergroupdesc)" />
+						<column label="Action" align="center" />
+					</columns>
+				</grid>
+			</div>
+		</div>
+		</div>
+	</div>
+</zk>

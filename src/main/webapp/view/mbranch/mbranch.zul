@@ -1,0 +1,107 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 14 - 6 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native" xmlns:x="xhtml">
+
+	<div viewModel="@id('vm')@init('com.vym.tugas.viewmodel.MbranchVm')">
+
+		<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fas fa-code-branch"></n:i>
+					<label value="Branch" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+
+		<div class="card">
+
+		<div class="card-body">
+			<groupbox mold="3d">
+				<caption label="${labels.common.searching}"
+					iconSclass="z-icon-search" />
+				<grid>
+					<columns>
+						<column width="170px" />
+						<column />
+					</columns>
+					<rows>
+						<row>
+							<label value="Branch Code" />
+							<div class="col-3">
+								<x:input value="@bind(vm.searchBranchcode)"
+									style="height:23px; border-color:#DCDFE1;" type="text"
+									class="form-control h-auto" cols="25" maxlength="20" />
+							</div>
+						</row>
+						
+						<row>
+							
+							<label value="Branch Name" />
+							<div class="col-3">
+								<x:input value="@bind(vm.searchBranchname)"
+									style="height:23px; border-color:#DCDFE1;" type="text"
+									class="form-control h-auto" cols="25" maxlength="20" />
+							</div>
+						</row>
+					</rows>
+					<foot>
+					<footer />
+						<footer>
+							<div class="row">
+
+								<div class="col-md-2">
+										<button autodisable="self"
+											label="${labels.common.search}" class="btn btn-info btn-sm"
+											onClick="@command('doSearch')">
+										</button>
+							
+								<button autodisable="self"
+											label="${labels.common.reset}" class="btn btn-warning btn-sm"
+											onClick="@command('doReset')">
+										</button>
+								</div>
+							</div>
+						</footer>
+					</foot>
+				</grid>
+			</groupbox>
+			<separator />
+			<separator />
+			<div class="row">
+				<div class="col-md-12" align="right">
+					<button autodisable="self" label="${labels.common.addnew}"
+						sclass="btn btn-primary btn-sm" iconSclass="z-icon-plus"
+						onClick="@command('doOpenAdd')">
+					</button>
+				</div>
+			</div>
+			<separator />
+			<separator />
+	
+			<grid id="grid" mold="paging" pagingPosition="both"
+				pageSize="20" emptyMessage="${labels.common.emptymsg}">
+				<columns>
+					<column width="5%" label="${labels.common.no}"
+						align="center" />
+					<column width="20%" label="Branch Code"
+						align="center" />
+					<column width="20%" label="Branch Name"
+						align="center" />
+					<column width="20%"
+						label="Branch City" align="center" />
+
+					<column width="10%" label="Action" align="center" />
+				</columns>
+			</grid>
+		</div>
+	</div>
+	</div>
+
+</zk>

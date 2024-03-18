@@ -1,0 +1,149 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 10 - 7 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native" xmlns:x="xhtml">
+	<window
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.ReportCustFeeVm')"
+		width="95%">
+		<caption />
+				<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fas fa-regular fa-comments-dollar"></n:i>
+					<label value="@load(vm.vproductfee.name)" style="font-size:24px" />
+				</n:h5>
+			</div>
+		</div>
+		<div class="card ">
+
+		<!-- 	<x:h5 class="card-header">
+				<label value="@load(vm.vproductfee.name)"
+					style="font-size: 18px" />
+			</x:h5> -->
+
+			<div class="card-body">
+
+				<div class="row">
+					<div class="col">
+						<div
+							class="card border h-100 w-100 d-inline-block">
+							<n:h5 class="card-header">
+								Fee Calculation Summary Information
+							</n:h5>
+							<div class="card-body">
+								<div class="row justify-content-center">
+									<div class="col-2">
+										<div class="mb-3">
+											<label class="form-label">
+												Total Items
+											</label>
+											<intbox class="form-control"
+												style="text-align: right" value="@load(vm.trx)"
+												format="###,##0" readonly="true" />
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="mb-3">
+											<label class="form-label">
+												Total Amount
+											</label>
+											<decimalbox
+												class="form-control" style="text-align: right"
+												value="@load(vm.amount)" format="###,##0" readonly="true" />
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="mb-3">
+											<label class="form-label">
+												Total Fee
+											</label>
+											<decimalbox
+												style="text-align: right" class="form-control"
+												value="@load(vm.fee)" format="###,##0" readonly="true" />
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="mb-3">
+											<label class="form-label">
+												Total Paid
+											</label>
+											<decimalbox
+												style="text-align: right" class="form-control"
+												value="@load(vm.paid)" format="###,##0" readonly="true" />
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="mb-3">
+											<label class="form-label">
+												Total Unpaid
+											</label>
+											<decimalbox
+												style="text-align: right" class="form-control"
+												value="@load(vm.unpaid)" format="###,##0" readonly="true" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<n:br />
+
+				<div class="row">
+					<div class="col">
+						<div
+							class="card border h-100 w-100 d-inline-block">
+
+							<x:h5 class="card-header">
+								Fee Calculation
+							</x:h5>
+
+							<div class="card-body">
+								<grid id="grid" mold="paging" sizedByContent="true" span="true"
+									pagingPosition="both" pageSize="20"
+									emptyMessage="No items match your search">
+									<columns>
+										<column width="5%" label="No"
+											align="right" />
+										<column width="20%"
+											label="Period" align="center" />
+										<column width="20%"
+											label="Customer" align="left" />
+										<column width="20%" label="CID"
+											align="center" />
+										<column width="20%"
+											label="Product" align="left" />
+										<column width="20%"
+											label="Total Trx" align="right" />
+										<column width="20%"
+											label="Total Amount" align="right" />
+										<column width="20%"
+											label="Total Fee" align="right" />
+										<column width="20%"
+											label="Total Paid" align="right" />
+										<column width="20%"
+											label="Total Unpaid" align="right" />
+									</columns>
+								</grid>
+							</div>
+							<div class="card-footer" align="right">
+								<button id="btExport"
+									class="btn btn-success" onClick="@command('doExport')"
+									label="Export" />
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</window>
+</zk>

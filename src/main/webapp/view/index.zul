@@ -1,0 +1,222 @@
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.png" ?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/core/libs.min.css"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/hope-ui.min.css?v=4.1.0"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/custom.min.css?v=4.1.0"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/custom.css?v=4.1.0"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/dark.min.css"?>
+
+<?meta charset="UTF-8" ?>
+<?meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" ?>
+<?meta http-equiv="x-ua-compatible" content="ie=edge" ?>
+
+<zk xmlns:h="http://www.w3.org/1999/xhtml" xmlns:n="native">
+    <h:meta charset="utf-8"></h:meta>
+    <h:meta http-equiv="X-UA-Compatible" content="IE=Edge"></h:meta>
+    <h:meta name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </h:meta>
+
+    <style>
+        body {
+        margin: 0!important;
+        padding: 0 0!important;
+        }
+    </style>
+
+    <zscript>
+        com.vym.tugas.domain.Muser oUser = (com.vym.tugas.domain.Muser) session.getAttribute("oUser");
+        if (oUser == null)
+        Executions.sendRedirect("/timeout.zul");
+    </zscript>
+
+    <n:div x-data="{}">
+        <div class="   boxed-fancy" viewModel="@id('vm')@init('com.vym.tugas.viewmodel.UserInitializationVm')">
+
+            <div class="boxed-inner">
+
+                <!-- loader Start -->
+                <div id="loading">
+                    <div class="loader simple-loader">
+                        <div class="loader-body">
+                        </div>
+                    </div>
+                </div>
+                <!-- loader END -->
+
+                <span class="screen-darken"></span>
+
+                <div class="main-content">
+                    <!--Nav Start-->
+                    <n:nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
+                        <div class="container-fluid navbar-inner">
+                            <button iconSclass="z-icon-align-right"
+                                    class="d-lg-none btn btn-primary rounded-pill p-1 pt-0"
+                                    type="button" onClick="@command('doMenuMobile')">
+                            </button>
+
+                            <a href="../dashboard/index.html" class="navbar-brand">
+                                <!--Logo start-->
+
+                                <!--logo End-->
+                                <h:h4 class="logo-title">K4</h:h4>
+                            </a>
+
+                            <!-- Horizontal Menu Start -->
+                            <div id="navMobile"
+                                 class="mobile-offcanvas nav navbar navbar-expand-xl hover-nav horizontal-nav mx-md-auto">
+                                <div class="container-fluid">
+                                    <div class="offcanvas-header px-0">
+                                        <div class="navbar-brand ms-3">
+
+                                            <!--Logo start-->
+                                            <div class="logo-main">
+                                                <div class="logo-normal">
+
+                                                </div>
+                                                <div class="logo-mini">
+
+                                                </div>
+                                            </div>
+                                            <!--logo End-->
+
+
+                                            <h:h4 class="logo-title">K4</h:h4>
+                                        </div>
+                                        <button sclass="btn-close float-end"
+                                                onClick="@command('doMenuMobile')"></button>
+                                    </div>
+                                    <h:ul id="ulMenu" class="navbar-nav">
+
+
+                                    </h:ul>
+                                </div> <!-- container-fluid.// -->
+                            </div>
+                            <!-- Sidebar Menu End -->
+                            <n:button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                      data-bs-target=".navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                      aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon">
+                                    <span class="navbar-toggler-bar bar1 mt-2"></span>
+                                    <span class="navbar-toggler-bar bar2"></span>
+                                    <span class="navbar-toggler-bar bar3"></span>
+                                </span>
+                            </n:button>
+                            <div class="collapse navbar-collapse navbarSupportedContent">
+                                <h:ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                    
+                                    <h:li class="nav-item dropdown">
+                                        <n:a class="nav-link py-0 d-flex align-items-center" href="#"
+                                             id="navbarDropdown"
+                                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <h:img src="../assets/images/avatars/profilepic.jpg" alt="User-Profile"
+                                                   class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded"/>
+
+                                            <div class="caption ms-3 d-none d-md-block">
+                                                <h:h6 class="mb-0 caption-title">${oUser.name}</h:h6>
+                                                <h:p class="mb-0 caption-sub-title">Administrator</h:p>
+                                            </div>
+                                        </n:a>
+                                        <h:ul class="dropdown-menu dropdown-menu-end">
+                                            <h:li>
+                                                <a class="dropdown-item">
+                                                    Profile
+                                                </a>
+                                            </h:li>
+                                            <h:li>
+                                                <a class="dropdown-item">
+                                                    Privacy Setting
+                                                </a>
+                                            </h:li>
+                                            <h:li>
+                                                <h:hr class="dropdown-divider"/>
+                                            </h:li>
+                                            <h:li>
+                                                <a class="dropdown-item" onClick="@command('doLogout')">Logout
+                                                </a>
+                                            </h:li>
+                                        </h:ul>
+                                    </h:li>
+                                </h:ul>
+                            </div>
+                        </div>
+                    </n:nav>
+                    <!--Nav End-->
+
+                    <div id="divContent" class="conatiner-fluid content-inner pb-0">
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <html>
+
+
+                <![CDATA[
+
+
+			<div id="loadingirsal" class="scene center-screen d-none"
+			style="--hue: 260; --saturation: 87;z-index: 10000000;
+			--lightness: 68">
+
+            <div style="    z-index: 80000;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.6;
+    cursor: wait;
+    position: fixed;" >  </div>
+
+			<div style="z-index: 90000;" class="loader">
+    <div>
+        <h:ul>
+            <h:li><svg viewBox="0 0 90 120" fill="currentColor">
+                    <h:path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></h:path>
+                </svg></h:li>
+            <h:li><svg viewBox="0 0 90 120" fill="currentColor">
+                    <h:path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></h:path>
+                </svg></h:li>
+            <h:li><svg viewBox="0 0 90 120" fill="currentColor">
+                    <h:path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></h:path>
+                </svg></h:li>
+            <h:li><svg viewBox="0 0 90 120" fill="currentColor">
+                    <h:path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></h:path>
+                </svg></h:li>
+            <h:li><svg viewBox="0 0 90 120" fill="currentColor">
+                    <h:path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></h:path>
+                </svg></h:li>
+            <h:li><svg viewBox="0 0 90 120" fill="currentColor">
+                    <h:path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></h:path>
+                </svg></h:li>
+        </h:ul>
+    </div><span>Loading</span>
+</div>
+
+			</div>
+
+			]]>
+
+
+            </html>
+
+        </div>
+    </n:div>
+
+    <script src="/assets/js/core/libs.min.js"></script>
+    <script src="/assets/js/core/external.min.js"></script>
+    <script src="/assets/js/charts/widgetcharts.js"></script>
+    <script src="/assets/js/hope-ui.js?v=3"></script>
+    <script src="/assets/js/plugins/setting.js"></script>
+    <script src="/assets/vendor/sweetalert/sweetalert2.all.js"></script>
+    <script src="/assets/js/plugins/fslightbox.js"></script>
+    <script src="/assets/js/plugins/slider-tabs.js"></script>
+
+
+</zk>

@@ -1,0 +1,91 @@
+
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.png" ?>
+
+<?link rel="stylesheet" type="text/css" href="/assets/css/core/libs.min.css"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/hope-ui.min.css?v=4.0.0"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/custom.min.css?v=4.0.0"?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/dark.min.css"?>
+
+
+<!-- Favicon and touch icons -->
+<?link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png" ?>
+
+<zk xmlns:n="native"
+	xmlns:h="http://www.w3.org/1999/xhtml">
+	<h:meta charset="utf-8"></h:meta>
+	<h:meta http-equiv="X-UA-Compatible" content="IE=Edge"></h:meta>
+	<h:meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	</h:meta>
+
+	<div class=" " viewModel="@id('vm') @init('com.vym.tugas.viewmodel.AuthentificationVm')">
+		<!-- loader Start -->
+		<n:div id="loading">
+			<n:div class="loader simple-loader">
+				<n:div class="loader-body">
+				</n:div>
+			</n:div>
+		</n:div>
+		<!-- loader END -->
+
+		<div class="wrapper">
+			<h:section class="login-content">
+				<div class="row m-0 align-items-center bg-white vh-100">
+					<div class="col-md-6">
+						<div class="row justify-content-center">
+							<div class="col-md-10">
+								<div class="card card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
+									<div class="card-body">
+										<a class="navbar-brand d-flex align-items-center mb-3">
+
+											<!--Logo start-->
+											<div class="logo-main">
+												<div class="logo-normal">
+
+												</div>
+												<div class="logo-mini">
+
+												</div>
+											</div>
+											<!--logo End-->
+
+											<h:h4 class="logo-title ms-3">K4</h:h4>
+										</a>
+										<h:h2 class="mb-2 text-center">Thank you</h:h2>
+										<n:p class="text-center">
+											<a href="/">Click here to login again</a>
+										</n:p>
+
+										<h:div>
+
+
+										</h:div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="sign-bg">
+
+						</div>
+					</div>
+					<div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
+						<h:img  src="/assets/images/auth/01.png" class="img-fluid gradient-main animated-scaleX" alt="images"/>
+					</div>
+				</div>
+			</h:section>
+		</div>
+
+		<script src="/assets/js/core/libs.min.js"></script>
+		<script src="/assets/js/core/external.min.js"></script>
+		<script src="/assets/js/hope-ui.js?v=3"></script>
+		<script src="/assets/js/plugins/setting.js"></script>
+		<script src="/assets/vendor/sweetalert/sweetalert2.all.js"></script>
+
+
+	</div>
+
+</zk>

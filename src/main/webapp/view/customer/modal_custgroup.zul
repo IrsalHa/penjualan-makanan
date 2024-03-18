@@ -1,0 +1,40 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 15 - 6 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:ca="http://www.zkoss.org/2005/zk/client/attribute">
+	<window id="modalViewEditMcustgroup"
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.CustgroupVM')"
+		validationMessages="@id('vmsgs')" border="normal" closable="true"
+		action="hide: slideUp" position="center,center">
+		<caption></caption>
+		<div
+			form="@id('fx') @load(vm.propmcustgroups) @save(vm.propmcustgroups, before='doUpdate') @validator(vm.validator)">
+			
+
+			<h:form>
+
+				<div class="mb-3">
+					<label class="form-label">Custgroup Name</label>
+					<h:input id="viewCustgroupname" type="text"
+						class="form-control" value="@bind(fx.custgroupname)" />
+					<label class="text-danger"
+						value="@load(vmsgs['custgroupname'])">
+					</label>
+				</div>
+				<button id="btnSubmitView"
+					onClick="@command('doUpdate')" class="btn btn-primary">
+					Simpan
+				</button>
+			</h:form>
+		</div>
+		
+	</window>
+</zk>

@@ -1,0 +1,82 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 5 - 7 - 2023
+  -->
+
+<!--
+	~ Razki fadillah
+	~ @razkifldh
+	~ 28 - 4 - 2023
+-->
+
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native">
+
+	<window
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.EpbbfileVM')"
+		width="90%">
+		<caption />
+		<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fas fa-file-invoice-dollar"></n:i>
+					<label value="Epbb File" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+		<div class="card">
+
+			<div class="card-body">
+				<div class="col" align="right">
+					<button id="btExport" class="btn btn-success m-3"
+						autodisable="self" onClick="@command('doExport')" label="Export" />
+				</div>
+				<grid id="grid" mold="paging" pagingPosition="both"
+					sizedByContent="true" span="true" pageSize="20"
+					emptyMessage="No Data">
+					<columns>
+						<column label="No" align="center" />
+
+						<column label="Billerid" align="center" />
+						<column label="Billername" align="center" />
+						<column label="Total Trx" align="right" />
+						<column label="Admin fee" align="right" />
+						<column label="Vendorfee" align="right" />
+						<column label="Total Vendorfee" align="right" />
+						<column label="Fee" align="right" />
+						<column label="Total fee" align="right" />
+						<column label="Branch Code" align="right" />
+						<column label="Period" align="center" />
+					</columns>
+					<foot>
+						<footer span="2" align="center">
+							<label value="TOTAL"
+								style="font-weight: bold" />
+						</footer>
+						<footer span="2" align="right">
+							<label
+								value="@load(vm.totaltrx) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer span="3" align="right">
+							<label
+								value="@load(vm.totalvendorfee) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+						<footer span="2" align="right">
+							<label
+								value="@load(vm.totalfee) @converter('formatedNumber', format='###,##0')"
+								style="font-weight: bold" />
+						</footer>
+
+
+					</foot>
+
+				</grid>
+			</div>
+		</div>
+	</window>
+
+</zk>

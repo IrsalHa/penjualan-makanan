@@ -1,0 +1,174 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 1 - 9 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk
+        xmlns:h="http://www.w3.org/1999/xhtml"
+>
+    <window id="winCustForm"
+            viewModel="@id('vm') @init('com.vym.tugas.viewmodel.CustomerFormVM')"
+            validationMessages="@id('vmsgs')" border="normal" closable="true"
+            action="hide: slideUp" position="center,center">
+
+        <caption></caption>
+        <div
+                form="@id('fx') @load(vm.objForm) @save(vm.objForm, before='doSave') @validator(vm.validator)">
+
+
+			<div class="card border border-dark">
+				<div class="card-header" id="divRoot">
+					<h:h5>
+						<h:i class="fas fa-code-branch"></h:i>
+						<label value="Customer" style="font-size:16px" />
+					</h:h5>
+				</div>
+			</div>
+
+            <div class="card ">
+                <div class="card-body">
+                    <h:form>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        ${labels.cust.custname}
+                                    </label>
+                                    <textbox class="form-control h-auto"
+                                             value="@bind(fx.custname)" maxlength="30"/>
+                                    <label class="text-danger"
+                                           value="@load(vmsgs['custname'])">
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="col-sm">
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        ${labels.custgroup.custgroupname}
+                                    </label>
+                                    <div class="col">
+                                        <combobox id="cbCustgroup"
+                                                  selectedItem="@bind(fx.mcustgroupfk)"
+                                                  model="@load(vm.mcustgroup)" readonly="true">
+                                            <template name="model"
+                                                      var="mcustgroup">
+                                                <comboitem
+                                                        label="@load(mcustgroup.custgroupname)"/>
+                                            </template>
+                                        </combobox>
+                                    </div>
+                                    <label class="text-danger"
+                                           value="@load(vmsgs['mcustgroupfk'])">
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">${labels.cust.address1}</label>
+                            <textbox type="text" class="form-control h-auto"
+                                     maxlength="50" value="@bind(fx.address1)"/>
+                            <label class="text-danger"
+                                   value="@load(vmsgs['address1'])">
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">${labels.cust.address2}</label>
+                            <textbox type="text" class="form-control h-auto"
+                                     maxlength="50" value="@bind(fx.address2)" id="viewaddress2"/>
+                            <label class="text-danger"
+                                   value="@load(vmsgs['address2'])">
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">${labels.cust.address3}</label>
+                            <textbox type="text" class="form-control h-auto"
+                                     maxlength="50" value="@bind(fx.address3)" id="viewaddress3"/>
+                            <label class="text-danger"
+                                   value="@load(vmsgs['address3'])">
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">${labels.cust.address4}</label>
+                            <textbox class="form-control h-auto" maxlength="50"
+                                     value="@bind(fx.address4)" id="viewaddress4"/>
+                            <label class="text-danger"
+                                   value="@load(vmsgs['address4'])">
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label class="form-label"
+                                           value="${labels.cust.city}">
+                                    </label>
+                                    <textbox type="text" class="form-control h-auto"
+                                             maxlength="25" value="@bind(fx.city)" id="viewcity"/>
+                                    <label class="text-danger"
+                                           value="@load(vmsgs['city'])">
+                                    </label>
+                                </div>
+                                <div class="col-sm">
+                                    <label class="form-label"
+                                           value="${labels.cust.zipcode}">
+                                    </label>
+                                    <textbox maxlength="5" id="viewZipcode"
+                                             class="form-control h-auto" value="@bind(fx.zipcode)"/>
+                                    <label class="text-danger"
+                                           value="@load(vmsgs['zipcode'])">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm mb-3">
+                            <label class="form-label"
+                                   value="${labels.cust.picemail}">
+                            </label>
+                            <textbox maxlength="100" id="viewemailpic"
+                                     constraint="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/: Enter Email Format"
+                                     class="form-control h-auto" value="@bind(fx.picemail)"/>
+                            <label class="text-danger"
+                                   value="@load(vmsgs['picemail'])">
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label class="form-label"
+                                           value="${labels.cust.picname}">
+                                    </label>
+                                    <textbox type="text" class="form-control h-auto"
+                                             maxlength="35" value="@bind(fx.picname)" id="viewpicname"/>
+                                    <label class="text-danger"
+                                           value="@load(vmsgs['picname'])">
+                                    </label>
+                                </div>
+                                <div class="col-sm">
+                                    <label class="form-label"
+                                           value="${labels.cust.picphone}">
+                                    </label>
+                                    <textbox id="viewnopic" class="form-control h-auto"
+                                             maxlength="20" value="@bind(fx.picphone)"/>
+                                    <label class="text-danger"
+                                           value="@load(vmsgs['picphone'])">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onClick="@command('doSave')"
+                                class="btn btn-primary">
+                            ${labels.common.save}
+                        </button>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </window>
+</zk>

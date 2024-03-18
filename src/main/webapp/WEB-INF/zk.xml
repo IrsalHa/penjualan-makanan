@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Irsal Hakim Alamsyah ~ @irsalha ~ 9 - 11 - 2022 -->
+
+<zk>
+	<!-- [Optional] Uncomment if you want to defines the application's name -->
+
+	<preference>
+		<name>org.zkoss.zk.ui.WebApp.name</name>
+		<value>Fee Collection</value>
+	</preference>
+	<listener>
+		<listener-class>
+			com.vym.utils.db.HibernateListener
+		</listener-class>
+	</listener>
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>iceblue_c</value>
+	</library-property>
+	<library-property>
+		<name>org.zkoss.zul.Paging.mold</name>
+		<value>os</value>
+	</library-property>
+	<language-config>
+		<addon-uri>/WEB-INF/ckez-bind-addon.xml</addon-uri>
+	</language-config>
+</zk>

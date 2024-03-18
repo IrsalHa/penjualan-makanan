@@ -1,0 +1,49 @@
+<?page title="${desktop.webApp.appName}"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/assets/css/custom.css" ?>
+
+<?link rel="stylesheet" type="text/css"	href="/assets/css/avio-style.css" ?>
+
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 15 - 6 - 2023
+  -->
+
+<zk xmlns:n="native" xmlns:h="http://www.w3.org/1999/xhtml">
+	<div class="/view/system/sysparam.zul card"
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.MsysparamVm')"
+		validationMessages="@id('vmsgs')">
+
+		<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fa-solid fa-gear"></n:i>
+					<label value="Systems Parameter" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-body">
+
+			<h:ul class="nav nav-fill nav-tabs mb-3" id="paramTabs" role="tablist">
+
+			</h:ul>
+
+			<h:div class="tab-content" id="myTabContent">
+
+			</h:div>
+
+
+			<separator />
+			<div align="right">
+				<button sclass="btn btn-primary"
+					label="${labels.common.save}" onClick="@command('doSave')"
+					width="100%" />
+			</div>
+		</div>
+		</div>
+	</div>
+</zk>

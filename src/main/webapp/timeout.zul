@@ -1,0 +1,133 @@
+<!--
+  ~ Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ 24 - 3 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.png" ?>
+<?link rel="stylesheet" type="text/css"	href="/assets/css/login.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/assets/css/avio-style.css" ?>
+<?link rel="stylesheet" type="text/css" href="/assets/css/custombg.css?v=62" ?>
+
+<!-- Favicon and touch icons -->
+<?link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png" ?>
+
+<zk xmlns:n="native"
+	xmlns:h="http://www.w3.org/1999/xhtml">
+	<h:meta charset="utf-8"></h:meta>
+	<h:meta http-equiv="X-UA-Compatible" content="IE=Edge"></h:meta>
+	<h:meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	</h:meta>
+	<script src="/assets/js/plugins.js"></script>
+
+
+	<div>
+
+		<div
+			class="d-flex align-items-center justify-content-center centered">
+
+
+			<div class="form-bg ">
+
+
+				<div class="form-horizontal">
+
+					<div
+						class=" d-flex  flex-fill justify-content-center mb-3">
+						<n:img class="d-flex justify-content-center"
+							src="images/Logotype.png" style="filter: none;"
+							width="124" height="40" alt="" />
+					</div>
+
+
+					<div class="form">
+						<n:p
+							class="card-text text-center justify-content-center">
+
+							The page or component you request is no
+							longer available. This is normally caused by
+							timeout, opening too many Web pages, or
+							rebooting the server. Please log in to using
+							this application again.
+							<button
+								class="btn btn-info btn-block my-4 rounded-pill" href="/">
+								Go To Log In Page
+							</button>
+
+						</n:p>
+					</div>
+
+					<div class="form-group">
+
+					</div>
+					<div class="form-group">
+						<div class="col-12">
+							<div
+								class="row justify-content-between flex-fill text-center">
+
+								<div class="col-6">
+									<label>Powered By</label>
+
+									<n:img class="d-inline-block"
+										src="images/logosdd.png" style="filter: none;"
+										width="40" height="40" alt="" />
+
+								</div>
+
+								<div class="col-6">
+									<label>© Copyright</label>
+									<n:img class="d-inline-block"
+										src="images/logobni.png" style="filter: none;"
+										width="40" height="30" alt="" />
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+	<script src="/config.js"></script>
+	<script src="/assets/js/bundle/sweetalert2.bundle.js"></script>
+
+	<script>
+
+
+
+		function loginLoading(){
+
+		}
+
+		const toastTemplate1 = Swal.mixin({ toast: true, position:
+		'top-end', showConfirmButton: false, timer: 2200,
+		timerProgressBar: true, didOpen: (toast) => {
+		toast.addEventListener('mouseenter', Swal.stopTimer)
+		toast.addEventListener('mouseleave', Swal.resumeTimer) } });
+
+		function showToast1(icon, msg){ toastTemplate1.fire({ icon:
+		icon, title: msg }); }
+
+	</script>
+
+</zk>

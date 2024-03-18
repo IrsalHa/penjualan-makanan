@@ -1,0 +1,97 @@
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 4 - 7 - 2023
+  -->
+
+<zk xmlns:n="native"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+>
+    <window id="winUser"
+            viewModel="@id('vm') @init('com.vym.tugas.viewmodel.UserFormVm')"
+            validationMessages="@id('vmsgs')" border="normal" closable="true"
+            action="hide: slideUp" position="center,center">
+        <caption/>
+
+
+            <div class="card border border-dark">
+                <div class="card-header" id="divRoot">
+                    <n:h5>
+                        <n:i class="z-icon-user"></n:i>
+                        <label value="User Form" style="font-size:16px"/>
+                    </n:h5>
+                </div>
+            </div>
+
+
+        <div class="card">
+            <div class="card-body"
+                 form="@id('e') @load(vm.objForm) @save(vm.objForm, before='doSave') @validator(vm.validator)">
+
+                <div class="lg-3 mb-3">
+                    <label class="form-label">
+                        ${labels.user.userid}
+                    </label>
+                    <h:input type="text" class="form-control"
+                             value="@bind(e.userid)"/>
+                    <label class="text-danger"
+                           value="@load(vmsgs['userid'])">
+                    </label>
+                </div>
+
+                <div class="lg-3 mb-3">
+                    <label class="form-label">
+                        ${labels.user.username}
+                    </label>
+                    <h:input type="text" class="form-control"
+                             value="@bind(e.username)"/>
+                    <label class="text-danger"
+                           value="@load(vmsgs['username'])">
+                    </label>
+                </div>
+                <div class="lg-3 mb-3">
+                    <label class="form-label">
+                        ${labels.user.email}
+                    </label>
+                    <textbox class="form-control h-auto" value="@bind(e.email)"/>
+                    <label class="text-danger"
+                           value="@load(vmsgs['email'])">
+                    </label>
+                </div>
+                <div id="divPassword" class="lg-3 mb-3">
+                    <label class="form-label">
+                        ${labels.user.password}
+                    </label>
+                    <textbox class="form-control h-auto" value="@bind(e.password)" type="password"/>
+                    <label class="text-danger"
+                           value="@load(vmsgs['password'])">
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">
+                        ${labels.usergroup.usergroupname}
+                    </label>
+                    <div class="col">
+                        <combobox id="cbUsergroup"
+                                  model="@load(vm.musergroup)" cols="30"
+                                  selectedItem="@bind(e.musergroup)">
+                            <template name="model" var="musergroup">
+                                <comboitem value="@load(musergroup)"
+                                        label="@load(musergroup.usergroupname)"/>
+                            </template>
+                        </combobox>
+                        <label style="color:red"
+                               value="@load(vmsgs['musergroup'])"/>
+                    </div>
+                </div>
+                <button onClick="@command('doSave')" width="100%"
+                        class="btn btn-primary">
+                    ${labels.common.save}
+                </button>
+
+            </div>
+        </div>
+    </window>
+</zk>

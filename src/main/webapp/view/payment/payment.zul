@@ -1,0 +1,109 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 5 - 7 - 2023
+  -->
+
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native">
+    <window id="winPayment" action="hide: slideUp"
+            validationMessages="@id('vmsgs')" position="center,center">
+
+        <div
+                viewModel="@id('vm') @init('com.vym.tugas.viewmodel.PaymentVM')">
+
+			<div class="card border border-dark">
+									<div class="card-header"
+										id="divRoot">
+										<n:h5>
+											<n:i class="fas fa-file-invoice-dollar"></n:i>
+											<label
+												value="List Payment"
+												style="font-size:16px" />
+										</n:h5>
+									</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <n:h5>
+                        <n:i class="fa-solid fa-magnifying-glass"></n:i>
+                        <label
+                                value="Search"
+                                style="font-size:13px" />
+                    </n:h5>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Invoice</label>
+                        <div class="col-sm-10">
+                            <textbox value="@bind(vm.searchInvoice)" class="form-control h-auto"></textbox>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Customer Name</label>
+                        <div class="col-sm-10">
+                            <textbox value="@bind(vm.searchCustomerName)" class="form-control h-auto"></textbox>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Payment Ref</label>
+                        <div class="col-sm-10">
+                            <textbox value="@bind(vm.searchPaymentRef)" class="form-control h-auto"></textbox>
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-primary" onClick="@command('doSearch')">Search</button>
+
+                    <button class="btn btn-warning" onClick="@command('doReset')">Reset</button>
+                </div>
+
+
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md">
+                            <paging id="paging"
+                                    autohide="true" style="margin-bottom:-20px" />
+                        </div>
+                        <div class="col-md-2"
+                             align="right">
+                            <label value="Total Data :"
+                                   style="font-weight: bold" />
+                            <label
+                                    value="@load(vm.pageTotalSize)" style="font-weight: bold" />
+                        </div>
+                    </div>
+
+                    <grid id="tableData"
+                          emptyMessage="No Data">
+                        <columns>
+                            <column width="5%" label="No"
+                                    align="right"/>
+                            <column width="20%" label="Customer Name"
+                                    align="left"/>
+                            <column width="10%" label="Invoice No"
+                                    align="center"/>
+                            <column width="10%" label="Invoice Amount"
+                                    align="right"/>
+                            <column width="10%" label="Payment Date"
+                                    align="center"/>
+                            <column width="10%" label="Payment Amount"
+                                    align="right"/>
+                            <column width="10%" label="Payment Ref NO"
+                                    align="center"/>
+                            <column width="20%" label="Message"
+                                    align="center"/>
+
+                        </columns>
+                    </grid>
+                </div>
+            </div>
+        </div>
+    </window>
+</zk>

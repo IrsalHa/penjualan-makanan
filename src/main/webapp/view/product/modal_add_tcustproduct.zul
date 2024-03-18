@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:ca="http://www.zkoss.org/2005/zk/client/attribute">
+	<window id="modalAddproduct"
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.TcustproductVM')"
+		validationMessages="@id('vmsgs')" border="normal" closable="true"
+		action="hide: slideUp" position="center,center">
+		<caption>Add Master Product Form</caption>
+		<div
+			form="@id('fx') @load(vm.tcustproduct) @save(vm.tcustproduct, before='doSave') @validator(vm.validator)">
+			<h:form>
+				<div class="mb-3">
+					<label class="form-label">Nama Customer</label>
+					<h:input type="text" min="1" max="5"
+						class="form-control" value="@bind(fx.mcustfk.custname)" />
+					<!-- <label class="text-danger"
+						value="@load(vmsgs['custname'])">
+						</label> -->
+				</div>
+				
+				<div class="mb-3">
+					<label class="form-label">Product Name</label>
+					<h:input type="text" class="form-control"
+						value="@bind(fx.mproductfk.productname)" />
+					<!-- 	<label class="text-danger"
+						value="@load(vmsgs['productname'])">
+						</label> -->
+				</div>
+
+
+
+				<div class="mb-3">
+					<label class="form-label">CID</label>
+					<h:input type="text" class="form-control"
+						value="@bind(fx.cid)" />
+					<label class="text-danger"
+						value="@load(vmsgs['cid'])">
+					</label>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Product Code</label>
+					<h:input type="text" class="form-control"
+						value="@bind(fx.mproductfk.productcode)" />
+					<!-- 	<label class="text-danger"
+						value="@load(vmsgs['productcodes'])">
+						</label> -->
+				</div>
+
+
+
+
+				<button onClick="@command('doSave')"
+					class="btn btn-outline-primary">
+					Submit
+				</button>
+			</h:form>
+		</div>
+	</window>
+</zk>

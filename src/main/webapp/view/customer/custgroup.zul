@@ -1,0 +1,99 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 15 - 6 - 2023
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native" xmlns:x="xhtml">
+	<div
+		viewModel="@id('vm') @init('com.vym.tugas.viewmodel.CustgroupVM')">
+
+		<div class="card border border-dark">
+			<div class="card-header" id="divRoot">
+				<n:h5>
+					<n:i class="fas fa-users"></n:i>
+					<label value="${labels.custgroup.custgroupname}" style="font-size:16px" />
+				</n:h5>
+			</div>
+		</div>
+
+		<div class="add_project.zul card ">
+			<div class="card-body">
+				<groupbox mold="3d">
+					<caption label="${labels.common.searching}"
+						iconSclass="z-icon-search" />
+					<grid>
+						<columns>
+							<column width="170px" />
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="${labels.custgroup.custgroupname}" />
+								<div class="col-3">
+									<x:input
+										value="@bind(vm.searchcustgroupname)"
+										style="height:23px; border-color:#DCDFE1;" type="text"
+										class="form-control" cols="25" maxlength="20" />
+								</div>
+							</row>
+						</rows>
+						<foot>
+							<footer />
+							<footer>
+								<div class="row">
+									<div class="col-md-2">
+										<n:div role="group">
+											<button autodisable="self"
+												label="${labels.common.search}" class="btn btn-info btn-sm"
+												onClick="@command('doSearch')">
+											</button>
+											<button autodisable="self"
+												label="${labels.common.reset}" class="btn btn-info btn-sm"
+												onClick="@command('doReset')">
+											</button>
+										</n:div>
+									</div>
+								</div>
+							</footer>
+						</foot>
+					</grid>
+				</groupbox>
+				<separator />
+				<separator />
+				<div class="row">
+					<div class="col-md-12" align="right">
+						<button autodisable="self" label="${labels.common.addnew}"
+							sclass="btn btn-primary btn-sm" iconSclass="z-icon-plus"
+							onClick="@command('ModalAddUser')">
+						</button>
+					</div>
+				</div>
+				<separator />
+				<separator />
+				<div class="card-body">
+
+					<grid id="tableData" mold="paging"
+						pagingPosition="both" pageSize="5"
+						emptyMessage="Data Tidak Ada">
+						<columns>
+							<column width="5%" label="No"
+								align="center" />
+
+							<column width="60%"
+								label="${labels.custgroup.custgroupname}" align="left" />
+
+
+							<column width="20%" label="Action"
+								align="center" />
+						</columns>
+					</grid>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</zk>
