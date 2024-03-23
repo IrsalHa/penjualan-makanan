@@ -14,16 +14,7 @@ public interface Dao<T> {
 
     default List<T> getAll() {
         try (Session session = StoreHibernateUtil.getSessionFactory().openSession()) {
-            List<T> result = null;
-            try {
-                session.beginTransaction();
-                result = getAll(session);
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                _logger.error(e.getMessage(), e);
-                session.getTransaction().rollback();
-            }
-            return result;
+            return wheres(session, "0=0");
         }
     }
 
@@ -31,80 +22,66 @@ public interface Dao<T> {
         return wheres(session, "0=0");
     }
 
-    default List<T> wheresRaw(Session session, String filter) {
-        Boolean isSingle = false;
-        if (filter.contains("LIMIT 1")) {
-            isSingle = true;
+    private List<T> wheres(Session session, String filter, boolean isSingle) {
+        String sql = "FROM " + getEntityClass().getSimpleName() + " WHERE " + filter;
+
+        if (isSingle) {
+            return (List<T>) session.createQuery(sql).setMaxResults(1).list();
         }
+
+        return (List<T>) session.createQuery(sql).list();
+    }
+
+    default List<T> wheres(Session session, String filter) {
+        return wheres(session, filter, false);
+    }
+
+    default List<T> wheres(String filter) {
+        try (Session session = StoreHibernateUtil.getSessionFactory().openSession()) {
+            return wheres(session, filter, false);
+        }
+    }
+
+    private List<T> wheresRaw(Session session, String filter, boolean isSingle) {
         String sql = "SELECT * FROM " + getEntityClass().getSimpleName().toUpperCase() + " WHERE " + filter;
 
         if (isSingle) {
-            return session.createNativeQuery(sql, getEntityClass()).list();
+            return session.createNativeQuery(sql, getEntityClass()).setMaxResults(1).list();
         }
+
         return session.createNativeQuery(sql, getEntityClass()).list();
+    }
+
+    default List<T> wheresRaw(Session session, String filter) {
+        return wheresRaw(session, filter, false);
     }
 
     default List<T> wheresRaw(String filter) {
         try (Session session = StoreHibernateUtil.getSessionFactory().openSession()) {
-            List<T> result = null;
-            try {
-                session.beginTransaction();
-                result = wheresRaw(session, filter);
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                _logger.error(e.getMessage(), e);
-                session.getTransaction().rollback();
-            }
-            return result;
+            return wheresRaw(session, filter);
         }
     }
 
-    default T whereRaw(String filter) {
-        List<T> resultList = wheresRaw(filter + " LIMIT 1");
+    default T where(Session session, String filter) {
+        List<T> resultList = wheres(session, filter, true);
+        return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    default T where(String filter) {
+        List<T> resultList = wheres(filter);
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     default T whereRaw(Session session, String filter) {
-        List<T> resultList = wheresRaw(session, filter + " LIMIT 1");
+        List<T> resultList = wheresRaw(session, filter, true);
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
-    default List<T> wheres(String filter) {
-        List<T> result = null;
+    default T whereRaw(String filter) {
         try (Session session = StoreHibernateUtil.getSessionFactory().openSession()) {
-            try {
-                //session.beginTransaction();
-                result = wheres(session, filter);
-                //session.getTransaction().commit();
-            } catch (Exception e) {
-                _logger.error(e.getMessage(), e);
-                //session.getTransaction().rollback();
-            }
+            List<T> resultList = wheresRaw(session, filter, true);
+            return resultList.isEmpty() ? null : resultList.get(0);
         }
-        return result;
-    }
-
-    default List<T> wheres(Session session, String filter) {
-        Boolean isSingle = false;
-        if (filter.contains("LIMIT 1")) {
-            isSingle = true;
-            filter = filter.replace("LIMIT 1", "");
-        }
-        String sql = "FROM " + getEntityClass().getSimpleName() + " WHERE " + filter;
-        if (isSingle) {
-            return (List<T>) session.createQuery(sql).setMaxResults(1).list();
-        }
-        return (List<T>) session.createQuery(sql).list();
-    }
-
-    default T where(String filter) {
-        List<T> resultList = wheres(filter + " LIMIT 1");
-        return resultList.isEmpty() ? null : resultList.get(0);
-    }
-
-    default T where(Session session, String filter) {
-        List<T> resultList = wheres(session, filter + " LIMIT 1");
-        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     default void delete(T entity) {

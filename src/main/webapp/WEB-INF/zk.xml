@@ -6,7 +6,7 @@
 
 	<preference>
 		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>Fee Collection</value>
+		<value>K4</value>
 	</preference>
 	<listener>
 		<listener-class>

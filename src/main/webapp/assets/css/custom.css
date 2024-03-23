@@ -17,33 +17,32 @@ body {
 
 
 .z-button {
-  font-family: inherit!important;
-  font-size: inherit!important;
-  font-weight: inherit!important;
-  font-style: inherit!important;
-  color: inherit!important;
-  min-height: inherit!important;
-  border: inherit!important;
-  -webkit-border-radius: inherit!important;
-  -moz-border-radius:inherit!important;
-  -o-border-radius: inherit!important;
-  -ms-border-radius: inherit!important;
-  border-radius: inherit!important;
-  padding: inherit!important;
-  line-height: inherit!important;
-  background-color: inherit!important;
-  -webkit-box-shadow: inherit!important;
-  -moz-box-shadow: inherit!important;
-  -o-box-shadow: inherit!important;
-  -ms-box-shadow: inherit!important;
-  box-shadow: inherit!important;
-  cursor: inherit!important;
-  white-space: inherit!important;
+  font-family: none!important;
+  font-size: none!important;
+  font-weight: none!important;
+  font-style: none!important;
+  color: none!important;
+  min-height: none!important;
+  border: none!important;
+  -webkit-border-radius: none!important;
+  -moz-border-radius:none!important;
+  -o-border-radius: none!important;
+  -ms-border-radius: none!important;
+  border-radius: none!important;
+  padding: none!important;
+  line-height: none!important;
+  background-color: none!important;
+  -webkit-box-shadow: none!important;
+  -moz-box-shadow: none!important;
+  -o-box-shadow: none!important;
+  -ms-box-shadow: none!important;
+  box-shadow: none!important;
+  white-space: none!important;
 }
 
 hr {
   margin: 1rem 0;
-  color: inherit;
+  color: none;
   background-color: currentColor;
   border: 0;
   opacity: 0.25;
@@ -591,4 +590,8 @@ body.uikit .btn-download {
 
 .top-1 {
   top: 1rem;
+}
+
+.swal2-container{
+  z-index: 99999999999999999!important;
 }

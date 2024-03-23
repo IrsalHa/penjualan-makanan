@@ -1,13 +1,8 @@
 <?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
-<!--
-  ~ Last Edited By : Irsal Hakim Alamsyah
-  ~ @irsalha
-  ~ Last Edited : 15 - 6 - 2023
-  -->
 
 <zk xmlns:n="native">
-
+    <div viewModel="@id('vm') @init('com.vym.tugas.viewmodel.DashboardVm')">
         <div class="row gap-3">
             <div class="card card-slide col-md-3">
                 <div class="card-body">
@@ -19,8 +14,8 @@
 
                         </n:div>
                         <div class="progress-detail">
-                            <n:p class="mb-2">Total Profit</n:p>
-                            <n:h4 class="counter">Rp 123213</n:h4>
+                            <n:p class="mb-2">Total User</n:p>
+                            <label class="counter h4" value="@load(vm.totalUser)"/>
                         </div>
                     </div>
                 </div>
@@ -42,9 +37,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
+    </div>
 </zk>

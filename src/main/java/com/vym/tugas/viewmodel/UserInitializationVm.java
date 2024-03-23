@@ -43,19 +43,10 @@ public class UserInitializationVm {
     @Wire
     private org.zkoss.zhtml.Ul ulMenu;
 
-    @Init
-    public void init() {
-        oUser = (Muser) zkSession.getAttribute("oUser");
-        if (oUser == null) {
-            Executions.sendRedirect("/");
-        }
-    }
-
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
         Selectors.wireComponents(view, this, false);
         try {
-            oUser = (Muser) zkSession.getAttribute("oUser");
             doRenderMenu();
             Executions.createComponents("/view/dashboard/dashboard.zul", divContent, null);
         } catch (Exception e) {

@@ -33,7 +33,7 @@ public class Muser {
     @Column(name = "userid", nullable = false, length = 20)
     private String userid;
 
-    @Size(max = 30)
+    @Size(max = 255)
     @NotNull
     @Column(name = "password", nullable = false, length = 30)
     private String password;
