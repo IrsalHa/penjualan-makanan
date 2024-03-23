@@ -60,6 +60,7 @@
         <!-- Mapping Class -->
         <mapping class="com.vym.tugas.domain.Muser"/>
         <mapping class="com.vym.tugas.domain.Mmenu"/>
+        <mapping class="com.vym.tugas.domain.Mcategory"/>
 
 
     </session-factory>

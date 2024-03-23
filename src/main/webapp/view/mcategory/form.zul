@@ -1,0 +1,53 @@
+<!--
+  ~ Last Edited By : Irsal Hakim Alamsyah
+  ~ @irsalha
+  ~ Last Edited : 19 - 3 - 2024
+  -->
+
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:n="native"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+>
+    <window id="winMcategory"
+            viewModel="@id('vm') @init('com.vym.tugas.viewmodel.McategoryFormVm')"
+            validationMessages="@id('vmsgs')" border="normal" closable="true"
+            action="hide: slideUp" position="center,top">
+        <caption/>
+
+
+        <div class="card">
+            <div class="card-header" id="divRoot">
+                <n:h5>
+                    <n:i class="fas fa-code-branch"></n:i>
+                    <label value="@load(vm.title)" style="font-size:16px"/>
+                </n:h5>
+            </div>
+
+
+            <div class="card-body pt-1 pb-1 pl-1 pr-1"
+                 form="@id('e') @load(vm.mcategory) @save(vm.mcategory, before='doSave') @validator(vm.validator)">
+                <h:form>
+
+                    <div class="lg-3 mb-3">
+                        <label class="form-label ">Name</label>
+                        <textbox
+                                class="form-control h-auto"
+                                value="@bind(e.name)">
+                        </textbox>
+
+                        <label class="text-danger"
+                               value="@load(vmsgs['name'])">
+                        </label>
+                    </div>
+
+                    <button autodisable="self" class="btn btn-primary" onClick="@command('doSave')">
+                        ${labels.common.save}
+                    </button>
+
+                </h:form>
+            </div>
+        </div>
+    </window>
+</zk>
