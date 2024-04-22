@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 public class McategoryVm {
-    private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
     @Wire
     private Grid grid;
 

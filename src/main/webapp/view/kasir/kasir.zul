@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<?page title="${desktop.webApp.appName}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk
+>
+
+    <div viewModel="@id('vm')@init('com.vym.tugas.viewmodel.KasirVm')">
+        <div class="row">
+            <div class="col-8">
+                <label>Search</label>
+                <textbox></textbox>
+                <grid mold="paging" height="400px" id="grid" pagingPosition="both" pageSize="20" sizedByContent="true"
+                      span="true">
+                    <columns>
+                        <column align="center">Name</column>
+                        <column align="center">Price</column>
+                        <column align="center">Stock</column>
+                        <column align="center">Category</column>
+                        <column align="center">Action</column>
+                    </columns>
+                </grid>
+            </div>
+
+            <div class="col-4" style="min-height: 700px;max-height: 700px;">
+
+                <div class="card" style="min-height: 600px;max-height: 600px;">
+
+                </div>
+
+                <div class="info-box">
+                    <label>Total Price:</label>
+                    <decimalbox id="dboxTotalPrice" format="Rp #,##0" locale="id-ID" readonly="true"></decimalbox>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</zk>

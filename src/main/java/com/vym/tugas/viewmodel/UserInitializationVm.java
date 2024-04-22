@@ -58,7 +58,7 @@ public class UserInitializationVm {
         try {
             org.zkoss.zhtml.Ul ulParentMenu = null;
 
-            List<Mmenu> Menus = new MmenuDao().getAll();
+            List<Mmenu> Menus = new MmenuDao().wheres("0=0 order by menuorderno asc");
             HashMap<String, List<Mmenu>> mapMenu = new HashMap<>();
             for (final Mmenu menu : Menus) {
                 if(mapMenu.containsKey(menu.getMenugroup())){
