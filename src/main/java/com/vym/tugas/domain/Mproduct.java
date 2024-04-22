@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -20,7 +21,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "mproduct")
-public class Mproduct {
+public class Mproduct implements Serializable {
+    private static final long serialVersionUID = -6772211105407481102L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mproduct_pk", nullable = false)

@@ -8,7 +8,8 @@
         <div class="row">
             <div class="col-8">
                 <label>Search</label>
-                <textbox></textbox>
+                <textbox id="tboxFilter"></textbox>
+                <button onClick="@command('doSearch')">Search</button>
                 <grid mold="paging" height="400px" id="grid" pagingPosition="both" pageSize="20" sizedByContent="true"
                       span="true">
                     <columns>
@@ -24,12 +25,19 @@
             <div class="col-4" style="min-height: 700px;max-height: 700px;">
 
                 <div class="card" style="min-height: 600px;max-height: 600px;">
-
+                    <grid mold="paging" height="400px" id="cart" pagingPosition="both" pageSize="20" sizedByContent="true"
+                          span="true">
+                        <columns>
+                            <column align="center">Name</column>
+                            <column align="center">Price</column>
+                            <column align="center">Qty</column>
+                        </columns>
+                    </grid>
                 </div>
 
                 <div class="info-box">
                     <label>Total Price:</label>
-                    <decimalbox id="dboxTotalPrice" format="Rp #,##0" locale="id-ID" readonly="true"></decimalbox>
+                    <decimalbox id="dboxTotalPrice" value="@load(vm.totalPrice)" format="Rp #,##0" locale="id-ID" readonly="true"></decimalbox>
                 </div>
 
             </div>

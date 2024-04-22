@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -19,7 +20,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "mcategory")
-public class Mcategory {
+public class Mcategory implements Serializable {
+    private static final long serialVersionUID = -6772211105407481102L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mcategory_pk", nullable = false)

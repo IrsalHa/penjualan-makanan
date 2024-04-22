@@ -11,13 +11,16 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "tinvoice")
-public class Tinvoice {
+public class Tinvoice implements Serializable {
+    private static final long serialVersionUID = -6772211105407481102L;
+
     @Id
     @Column(name = "tinvoice_pk", nullable = false)
     private Long id;
