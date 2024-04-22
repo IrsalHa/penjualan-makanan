@@ -28,7 +28,7 @@
     </div>
 
 
-    <div sclass="card" viewModel="@id('vm')@init('com.vym.tugas.viewmodel.McategoryVm')">
+    <div sclass="card" viewModel="@id('vm')@init('com.vym.tugas.viewmodel.MproductVm')">
 
         <div class="card-header d-flex justify-content-between flex-wrap ">
 
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-md-12" align="right">
-                    <button autodisable="self" label="Add Category" onClick="@command('doOpenAdd')"
+                    <button autodisable="self" label="Add Product" onClick="@command('doOpenAdd')"
                             class="btn btn-primary btn-sm" iconSclass="z-icon-plus"
                     >
                     </button>
@@ -57,6 +57,12 @@
                     <column label="Action" align="center"/>
                     <column label="Name"
                             align="center" sort="auto(name)"/>
+                    <column label="Price"
+                            align="center" sort="auto(price)"/>
+                    <column label="Stock"
+                            align="center" sort="auto(stock)"/>
+                    <column label="Category"
+                            align="center" sort="auto(mcategory.name)"/>
                 </columns>
             </grid>
         </div>

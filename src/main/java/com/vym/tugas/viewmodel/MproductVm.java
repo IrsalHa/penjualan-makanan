@@ -6,14 +6,12 @@
 
 package com.vym.tugas.viewmodel;
 
-import com.vym.tugas.dao.McategoryDao;
-import com.vym.tugas.domain.Mcategory;
-import com.vym.tugas.model.McategoryListModel;
-import com.vym.tugas.model.MuserListModel;
+import com.vym.tugas.dao.MproductDao;
+import com.vym.tugas.domain.Mproduct;
+import com.vym.tugas.model.MproductListModel;
 import com.vym.utils.db.StoreHibernateUtil;
 import com.vym.utils.helper.MessageBox;
 import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Component;
@@ -31,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class McategoryVm {
+public class MproductVm {
     private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
     @Wire
     private Grid grid;
@@ -49,9 +47,9 @@ public class McategoryVm {
     }
 
     public void renderTable() {
-        grid.setRowRenderer(new RowRenderer<Mcategory>() {
+        grid.setRowRenderer(new RowRenderer<Mproduct>() {
             @Override
-            public void render(Row row, Mcategory data, int index) {
+            public void render(Row row, Mproduct data, int index) {
                 row.getChildren().add(new Label(String.valueOf(index + 1)));
 
                 List<Menuitem> menuitemList = new ArrayList<>();
@@ -74,18 +72,21 @@ public class McategoryVm {
 
                 row.getChildren().add(renderBtnAction(menuitemList));
                 row.getChildren().add(new Label(data.getName()));
+                row.getChildren().add(new Label(data.getPrice().toPlainString()));
+                row.getChildren().add(new Label(data.getStock().toString()));
+                row.getChildren().add(new Label(data.getMcategory().getName()));
             }
         });
     }
 
     @NotifyChange("*")
     public void doReset() {
-        grid.setModel(new McategoryListModel(0, 999999999, "0=0", "mcategory_pk"));
+        grid.setModel(new MproductListModel(0, 999999999, "0=0", "mproduct_pk"));
     }
 
     @Command
     public void doOpenAdd() {
-        Window win = (Window) Executions.createComponents("/view/mcategory/form.zul", null, null);
+        Window win = (Window) Executions.createComponents("/view/mproduct/form.zul", null, null);
         win.doModal();
         win.setWidth("60%");
         win.setClosable(true);
@@ -95,7 +96,7 @@ public class McategoryVm {
             @Override
             public void onEvent(Event event) throws Exception {
                 doReset();
-                BindUtils.postNotifyChange(null, null, McategoryVm.this, "*");
+                BindUtils.postNotifyChange(null, null, MproductVm.this, "*");
 
             }
 
@@ -103,11 +104,11 @@ public class McategoryVm {
     }
 
     @Command
-    public void doOpenEdit(Mcategory mcategory) {
+    public void doOpenEdit(Mproduct mproduct) {
         Map<String, Object> map = new HashMap<>();
         map.put("isEdit", true);
-        map.put("obj", mcategory);
-        Window win = (Window) Executions.createComponents("/view/mcategory/form.zul", null, map);
+        map.put("obj", mproduct);
+        Window win = (Window) Executions.createComponents("/view/mproduct/form.zul", null, map);
         win.doModal();
         win.setWidth("60%");
         win.setClosable(true);
@@ -117,7 +118,7 @@ public class McategoryVm {
             @Override
             public void onEvent(Event event) throws Exception {
                 doReset();
-                BindUtils.postNotifyChange(null, null, McategoryVm.this, "*");
+                BindUtils.postNotifyChange(null, null, MproductVm.this, "*");
 
             }
 
@@ -139,10 +140,10 @@ public class McategoryVm {
     }
 
     @Command
-    public void doDeleteConfirmation(Mcategory mcategory) {
+    public void doDeleteConfirmation(Mproduct mproduct) {
         Messagebox.show("Apakah anda yakin?", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, event -> {
             if (event.getName().equals("onOK")) {
-                doDelete(mcategory);
+                doDelete(mproduct);
                 doReset();
             } else {
                 MessageBox.error("Hapus di Batalkan");
@@ -150,23 +151,17 @@ public class McategoryVm {
         });
     }
 
-    public void doDelete(Mcategory mcategory) {
+    public void doDelete(Mproduct mproduct) {
         try (Session session = StoreHibernateUtil.getSessionFactory().openSession()) {
             try {
                 session.beginTransaction();
-                new McategoryDao().delete(session, mcategory);
-                MessageBox.success(mcategory.getName() + " Berhasil di Hapus!");
+                new MproductDao().delete(session, mproduct);
+                MessageBox.success(mproduct.getName() + " Berhasil di Hapus!");
                 session.getTransaction().commit();
-            }catch (Exception e) {
+            } catch (Exception e) {
                 session.getTransaction().rollback();
                 e.printStackTrace();
-
-                if(e.getCause() instanceof ConstraintViolationException) {
-                    MessageBox.error(mcategory.getName() + " Masih digunakan!");
-                }else{
-                    MessageBox.error(mcategory.getName() + " Gagal di Hapus!");
-                }
-
+                MessageBox.error(mproduct.getName() + " Gagal di Hapus!");
             }
         }
     }

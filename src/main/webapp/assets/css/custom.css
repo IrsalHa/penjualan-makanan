@@ -595,3 +595,12 @@ body.uikit .btn-download {
 .swal2-container{
   z-index: 99999999999999999!important;
 }
+
+.z-combobox-input {
+  background: #FFFFFF!important;
+  border: 0px!important;
+}
+
+.z-combobox-button{
+  height: 100%!important;
+}

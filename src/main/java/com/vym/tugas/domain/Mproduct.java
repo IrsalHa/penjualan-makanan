@@ -12,17 +12,18 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "mcategory")
-public class Mcategory {
+@Table(name = "mproduct")
+public class Mproduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mcategory_pk", nullable = false)
+    @Column(name = "mproduct_pk", nullable = false)
     private Long id;
 
     @Size(max = 30)
@@ -30,7 +31,17 @@ public class Mcategory {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @OneToMany(mappedBy = "mcategory")
-    private Set<Mproduct> mproducts = new LinkedHashSet<>();
+    @NotNull
+    @Column(name = "price", nullable = false, precision = 10)
+    private BigDecimal price;
+
+    @NotNull
+    @Column(name = "stock", nullable = false)
+    private Long stock;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "mcategory_fk", nullable = false)
+    private Mcategory mcategory;
 
 }
