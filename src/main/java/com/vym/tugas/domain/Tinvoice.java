@@ -22,6 +22,7 @@ public class Tinvoice implements Serializable {
     private static final long serialVersionUID = -6772211105407481102L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tinvoice_pk", nullable = false)
     private Long id;
 
@@ -37,5 +38,15 @@ public class Tinvoice implements Serializable {
     @NotNull
     @Column(name = "price", nullable = false, precision = 10)
     private BigDecimal price;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "muser_fk", nullable = false)
+    private Muser muserFk;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "tbatchinvoice_fk", nullable = false)
+    private Tbatchinvoice tbatchinvoiceFk;
 
 }

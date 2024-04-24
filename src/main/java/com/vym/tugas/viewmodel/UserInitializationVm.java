@@ -34,8 +34,11 @@ public class UserInitializationVm {
     private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
     private Muser oUser;
     private boolean isOpen = false;
+
     @Wire
     private Div divContent;
+
+    public static Div divContent2;
     @Wire
     private Div divAccord;
     @Wire
@@ -48,6 +51,7 @@ public class UserInitializationVm {
         Selectors.wireComponents(view, this, false);
         try {
             doRenderMenu();
+            divContent2 = divContent;
             Executions.createComponents("/view/dashboard/dashboard.zul", divContent, null);
         } catch (Exception e) {
             e.printStackTrace();

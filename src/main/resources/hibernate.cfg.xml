@@ -62,6 +62,9 @@
         <mapping class="com.vym.tugas.domain.Mmenu"/>
         <mapping class="com.vym.tugas.domain.Mcategory"/>
         <mapping class="com.vym.tugas.domain.Mproduct"/>
+        <mapping class="com.vym.tugas.domain.TcounterEngine"/>
+        <mapping class="com.vym.tugas.domain.Tinvoice"/>
+        <mapping class="com.vym.tugas.domain.Tbatchinvoice"/>
 
 
     </session-factory>

@@ -7,23 +7,39 @@
 package com.vym.tugas.viewmodel;
 
 import com.vym.tugas.dao.MproductDao;
+import com.vym.tugas.dao.TbatchinvoiceDao;
+import com.vym.tugas.dao.TcounterEngineDao;
+import com.vym.tugas.dao.TinvoiceDao;
 import com.vym.tugas.domain.Mproduct;
+import com.vym.tugas.domain.Muser;
+import com.vym.tugas.domain.Tbatchinvoice;
 import com.vym.tugas.domain.Tinvoice;
+import com.vym.utils.db.StoreHibernateUtil;
+import com.vym.utils.helper.MessageBox;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.SerializationUtils;
+import org.apache.poi.ss.formula.functions.T;
+import org.hibernate.Session;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Big;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,10 +54,17 @@ public class KasirVm {
     @Wire
     private Decimalbox dboxTotalPrice;
     @Wire
+    private Decimalbox dboxCustomerBalance;
+    @Wire
     private Textbox tboxFilter;
 
+    private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
+    private Muser oUser = (Muser) zkSession.getAttribute("oUser");
     private List<Tinvoice> mcart;
     private BigDecimal totalPrice = new BigDecimal(0);
+    private Tbatchinvoice tbatchinvoice;
+    private List<Tinvoice> tinvoiceList = new ArrayList<>();
+
 
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
@@ -71,7 +94,7 @@ public class KasirVm {
             Button btnAdd = new Button();
             btnAdd.setLabel("+");
             btnAdd.setAutodisable("true");
-            btnAdd.setClass("btn btn-primary btn-sm");
+            btnAdd.setClass("btn btn-primary btn-sm mr-2");
             btnAdd.addEventListener(Events.ON_CLICK, event -> {
                 boolean present = false;
 
@@ -194,8 +217,68 @@ public class KasirVm {
         grid.setModel(new ListModelList<>(new MproductDao().wheres("name like '%" + tboxFilter.getValue().trim() + "%' ")));
     }
 
+    public void doProceed(){
+        BigDecimal customerBalance = dboxCustomerBalance.getValue();
+
+        if(customerBalance == null || customerBalance.compareTo(BigDecimal.ZERO) == 0){
+            MessageBox.error("Please Input Customer Balance!");
+            return;
+        }
+
+        if(!(customerBalance.compareTo(totalPrice) > 0)){
+            MessageBox.error("Customer balance is insufficient!");
+            return;
+        }
+
+        try(Session session = StoreHibernateUtil.getSessionFactory().openSession()){
+            try {
+                session.beginTransaction();
+
+                BigDecimal restBalance = customerBalance.subtract(totalPrice);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy/")
+                        .withZone(ZoneId.systemDefault());
+                tbatchinvoice.setInvoiceno(new TcounterEngineDao().getValue(formatter.format(Instant.now())));
+                tbatchinvoice.setTotalPrice(totalPrice);
+                tbatchinvoice.setCreatedAt(Instant.now());
+
+                new TbatchinvoiceDao().saveOrUpdate(session, tbatchinvoice);
+
+                for(Tinvoice tinvoice : mcart ){
+                    tinvoice.setTbatchinvoiceFk(tbatchinvoice);
+                    tinvoice.setMuserFk(oUser);
+
+                    new TinvoiceDao().saveOrUpdate(session, tinvoice);
+                }
+
+
+                DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                formatRp.setCurrencySymbol("Rp. ");
+                formatRp.setMonetaryDecimalSeparator(',');
+                formatRp.setGroupingSeparator('.');
+
+                kursIndonesia.setDecimalFormatSymbols(formatRp);
+
+                session.getTransaction().commit();
+                String rest = "Change: ";
+
+                if(restBalance.compareTo(BigDecimal.ZERO) > 0){
+                    rest += kursIndonesia.format(restBalance);
+                }
+
+                MessageBox.success(rest);
+                UserInitializationVm.divContent2.getChildren().clear();
+            }catch (Exception e){
+                e.printStackTrace();
+                session.getTransaction().rollback();
+            }
+        }
+    }
+
     @NotifyChange("*")
     public void doReset() {
+        tbatchinvoice = new Tbatchinvoice();
         grid.setModel(new ListModelList<>(new MproductDao().getAll()));
         mcart = new ArrayList<Tinvoice>();
         cart.setModel(new ListModelList<>(mcart));
