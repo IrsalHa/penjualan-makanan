@@ -137,7 +137,7 @@
                     </n:nav>
                     <!--Nav End-->
 
-                    <div id="divContent" class="conatiner-fluid content-inner pb-0">
+                    <div id="divContent" class="container-fluid content-inner pb-3" style="overflow: auto;">
 
                     </div>
 

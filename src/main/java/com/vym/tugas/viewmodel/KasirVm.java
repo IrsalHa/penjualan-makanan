@@ -225,7 +225,7 @@ public class KasirVm {
             return;
         }
 
-        if(!(customerBalance.compareTo(totalPrice) > 0)){
+        if(customerBalance.compareTo(totalPrice) < 0){
             MessageBox.error("Customer balance is insufficient!");
             return;
         }
@@ -261,10 +261,10 @@ public class KasirVm {
                 kursIndonesia.setDecimalFormatSymbols(formatRp);
 
                 session.getTransaction().commit();
-                String rest = "Change: ";
+                String rest = "";
 
                 if(restBalance.compareTo(BigDecimal.ZERO) > 0){
-                    rest += kursIndonesia.format(restBalance);
+                    rest += "Change: " + kursIndonesia.format(restBalance);
                 }
 
                 MessageBox.success(rest);

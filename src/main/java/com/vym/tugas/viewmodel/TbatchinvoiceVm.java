@@ -13,7 +13,10 @@ import com.vym.tugas.model.MproductListModel;
 import com.vym.tugas.model.TbatchinvoiceListModel;
 import com.vym.utils.db.StoreHibernateUtil;
 import com.vym.utils.helper.MessageBox;
+import net.sf.jasperreports.engine.*;
 import org.hibernate.Session;
+import org.hibernate.internal.SessionImpl;
+import org.hibernate.jdbc.Work;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Component;
@@ -26,12 +29,16 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TbatchinvoiceVm {
     @Wire
@@ -44,10 +51,13 @@ public class TbatchinvoiceVm {
         try {
             renderTable();
             doReset();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     public void renderTable() {
         grid.setRowRenderer(new RowRenderer<Tbatchinvoice>() {
@@ -64,6 +74,14 @@ public class TbatchinvoiceVm {
                     doOpenView(data);
                 });
                 menuitemList.add(menuitemEdit);
+
+                Menuitem menuDownload = new Menuitem();
+                menuDownload.setLabel("Download");
+                menuDownload.setIconSclass("z-icon-download");
+                menuDownload.addEventListener(Events.ON_CLICK, event -> {
+                    downloadPdf(data);
+                });
+                menuitemList.add(menuDownload);
 
                 row.getChildren().add(renderBtnAction(menuitemList));
                 row.getChildren().add(new Label(data.getInvoiceno()));
@@ -85,21 +103,10 @@ public class TbatchinvoiceVm {
     public void doOpenView(Tbatchinvoice tbatchinvoice) {
         Map<String, Object> map = new HashMap<>();
         map.put("obj", tbatchinvoice);
-        Window win = (Window) Executions.createComponents("/view/mproduct/form.zul", null, map);
-        win.doModal();
-        win.setWidth("60%");
-        win.setClosable(true);
-
-        win.addEventListener(Events.ON_CLOSE, new EventListener<Event>() {
-
-            @Override
-            public void onEvent(Event event) throws Exception {
-                doReset();
-                BindUtils.postNotifyChange(null, null, TbatchinvoiceVm.this, "*");
-
-            }
-
-        });
+        UserInitializationVm.divContent2.getChildren().clear();
+        UserInitializationVm.divContent2.setVisible(false);
+        Executions.createComponents("tbatchinvoice/details.zul", UserInitializationVm.divContent2, map);
+        UserInitializationVm.divContent2.setVisible(true);
     }
 
     public Combobutton renderBtnAction(List<Menuitem> menuitemList) {
@@ -114,6 +121,39 @@ public class TbatchinvoiceVm {
 
         return combobutton;
 
+    }
+
+    public void downloadPdf(Tbatchinvoice tbatchinvoice) throws JRException {
+        try(Session session = StoreHibernateUtil.getSessionFactory().openSession()){
+            session.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    try {
+
+                        String path = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+                        JasperReport jasperReport = JasperCompileManager.compileReport(path + "/jasper/Invoice.jrxml");
+                        JasperCompileManager.compileReportToFile(path + "/jasper/Invoice.jrxml", path + "/jasper/Invoice.jasper");
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("INVOICENO", tbatchinvoice.getInvoiceno());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                                .withZone(ZoneId.systemDefault());
+                        params.put("INVOICEDATE",formatter.format(tbatchinvoice.getCreatedAt()));
+                        params.put("PK", tbatchinvoice.getId());
+
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, connection);
+                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                        JasperExportManager.exportReportToPdfStream(jasperPrint, output);
+                        String filename = UUID.randomUUID().toString() + ".pdf";
+                        try (OutputStream outputStream = new FileOutputStream(path + "/invoice/" + filename)) {
+                            output.writeTo(outputStream);
+                        }
+                        Filedownload.save(new File(path + "/invoice/" + filename), "application/pdf");
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
     }
 
 

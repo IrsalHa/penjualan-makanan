@@ -37,11 +37,11 @@
 
                 <div class="info-box">
                     <label>Total Price:</label>
-                    <decimalbox id="dboxTotalPrice" value="@load(vm.totalPrice)" format="Rp #,##0" locale="id-ID" readonly="true"></decimalbox>
+                    <decimalbox class="form-control h-auto" id="dboxTotalPrice" value="@load(vm.totalPrice)" format="Rp #,##0" locale="id-ID" readonly="true"></decimalbox>
                     <separator></separator>
 
                     <label>Customer Balance:</label>
-                    <decimalbox id="dboxCustomerBalance" format="Rp #,##0" locale="id-ID"></decimalbox>
+                    <decimalbox class="form-control h-auto" id="dboxCustomerBalance" format="Rp #,##0" locale="id-ID"></decimalbox>
                     <separator></separator>
 
                     <button class="btn btn-primary btn-sm pull-right" onClick="@command('doProceed')">Proceed</button>
